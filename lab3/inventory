@@ -1,0 +1,20 @@
+# Group list
+# ----------
+[servers:children]
+web-server
+db-server
+test-server
+
+# Hosts list
+# ----------
+[web-server]
+DEV-web-server
+
+[db-server]
+DEV-db-server
+
+[test-server]
+DEV-test-server
+
+[all:vars]
+env="DEV"

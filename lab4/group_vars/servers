@@ -1,0 +1,6 @@
+---
+logging_level: 'INFO'
+app_system_user: admin
+app_system_user_id: 7001
+app_system_group: admingrp
+app_system_group_id: 7001

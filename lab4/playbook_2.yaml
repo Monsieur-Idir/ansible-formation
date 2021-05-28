@@ -1,0 +1,31 @@
+---
+- name: "LAB4 - Variables and facts"
+  hosts: web-server
+  become: True
+  vars_files:
+    - vars/users.yaml
+    - vars/packages.yaml
+
+
+  tasks:
+
+  - name: Create the group web
+    group:
+      name: webgroup
+      state: present
+
+  - name: Create the user admin
+    user:
+      name: webadmin
+      group: webgroup
+      state: present
+
+  - name: Install NGINX
+    apt:
+      name: nginx
+      state: present
+
+  - name: Configure the index.html page
+    copy:
+      src: files/index.nginx-debian.html
+      dest: /var/www/html/index.nginx-debian.html

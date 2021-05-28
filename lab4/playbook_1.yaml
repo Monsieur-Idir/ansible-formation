@@ -1,0 +1,27 @@
+---
+- name: "LAB4 - Variables and facts"
+  hosts: web-server
+  become: True
+  vars:
+    user: Albert
+    home: /home/albert
+    package: nginx
+
+
+  tasks:
+
+  - name: Create the group web
+    group:
+      name: webgroup
+      state: present
+
+  - name: Create the user {{Albert}}
+    user:
+      name: "{{user}}"
+      home: "{{home}}"
+      state: present
+
+  - name: Install the package {{package}}
+    apt:
+      name: "{{package}}"
+      state: present
