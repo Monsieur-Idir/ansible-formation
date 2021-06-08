@@ -1,0 +1,36 @@
+---
+- name: "LAB6 - Gestion des 'facts'"
+  hosts: test-server
+  become: True
+  gather_facts: no
+
+
+  tasks:
+
+#  - name: Show me the Ansible Facts variables
+#    debug:
+#      var: ansible_facts
+  
+  - name: Show me the IP address
+    debug:
+      var: ansible_facts.default_ipv4.address
+  
+  - name: Show me the distribution
+    debug:
+      var: ansible_facts.distribution
+
+  - name: Show me the release
+    debug:
+      var: ansible_facts.distribution_release
+
+  - name: Show me the distribution version
+    debug:
+      var: ansible_facts.distribution_version
+
+  - name: Show me the hostname
+    debug:
+      var: ansible_facts.hostname
+
+  - name: Show me the free memory
+    debug:
+      var: ansible_facts.memory_mb.real.free
