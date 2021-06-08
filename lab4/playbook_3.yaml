@@ -1,0 +1,42 @@
+---
+- name: "LAB4 - Variables and facts"
+  hosts: db-server
+  become: True
+
+
+  tasks:
+
+  - name: Create local dbgroup
+    group:
+      name: dbgroup
+      state: present
+
+  - name: Create local admin DB user
+    user:
+      name: dbadmin
+      group: dbgroup
+
+  - name: Create directory for packages
+    file:
+      path: /dists
+      state: directory
+      owner: dbadmin
+      group: dbgroup
+      mode: 0777
+      recurse: yes
+    register: dists_dir
+
+  - name: Show me the "dists_dir" variable
+    debug:
+      var: dists_dir
+
+  - name: Download PostgreSQL package
+    get_url:
+      url: http://security.ubuntu.com/ubuntu/pool/main/p/postgresql-10/postgresql-10_10.17-0ubuntu0.18.04.1_i386.deb
+      dest: "{{dists_dir.path}}"
+    register: pgsql_pkg
+    become_user: dbadmin
+
+  - name: Show me the "pgsql_pkg" variable
+    debug:
+      var: pgsql_pkg

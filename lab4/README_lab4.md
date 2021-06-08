@@ -139,6 +139,60 @@ Il est donc important de faire correspondre les noms présents dans l'inventaire
 
 
 
+Exécutez la commande suivante : `ansible-playbook playbook_1.yaml -i inventory`
+
+
+
+Exécutez ensuite le playbook 2 appelant les fichiers de variables : `ansible-playbook playbook_2.yaml -i inventory`
+
+
+
+##### Variables enregistrées
+
+> Les administrateurs peuvent utiliser l'instruction register pour capturer le résultat d'une
+> commande. Le résultat est alors enregistré dans une variable qui pourra servir par la suite au
+> débogage ou à d'autres fins, par exemple pour une configuration donnée liée au résultat d'une
+> commande.
+
+Consultez le playbook playbook_3.yaml et remarquez les `register` ainsi que les tâches de `debug` (permettant d'afficher un message ou une variable) :
+
+```yaml
+  - name: Create directory for packages
+    file:
+      path: /dists
+      state: directory
+      owner: dbadmin
+      group: dbgroup
+      mode: 0777
+      recurse: yes
+    register: dists_dir
+
+  - name: Show me the "dists_dir" variable
+    debug:
+      var: dists_dir
+
+  - name: Download PostgreSQL package
+    get_url:
+      url: http://security.ubuntu.com/ubuntu/pool/main/p/postgresql-10/postgresql-10_10.17-0ubuntu0.18.04.1_i386.deb
+      dest: "{{dists_dir.path}}"
+    register: pgsql_pkg
+    become_user: dbadmin
+
+  - name: Show me the "pgsql_pkg" variable
+    debug:
+      var: pgsql_pkg
+```
+
+
+
+Exécutez ensuite le playbook avec la commande : `ansible-playbook playbook_3_copy.yaml -i inventory`
+
+La variable `dists` enregistrée apporte plusieurs informations, sous format JSON, dont le chemin '`path`' nous intéresse pour la tâche suivante : `"{{dists.path}}"`
+
+Constatez également le contenu de la variable `pgsql_pkg` affichée par le module `debug`.
+
+
+
 
 
 
@@ -156,7 +210,5 @@ Il est donc important de faire correspondre les noms présents dans l'inventaire
 
 Ecrivez votre propre playbook qui effectuera les étapes suivantes :
 
-- Création de l'utilisateur <votre_nom> avec l'UID et le GID 1501
-- Installation et démarrage du service HTTPD
-- Copie du fichier de configuration apache vers le serveur
-- Redémarrage du serveur apache
+- 
+

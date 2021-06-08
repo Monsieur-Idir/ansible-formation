@@ -15,7 +15,7 @@
       name: webgroup
       state: present
 
-  - name: Create the user {{Albert}}
+  - name: Create the user {{user}}
     user:
       name: "{{user}}"
       home: "{{home}}"
