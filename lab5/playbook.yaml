@@ -1,0 +1,14 @@
+---
+- name: "LAB5 - Ansible Vault and secrets"
+  hosts: test-server
+  become: True
+  vars_files:
+    - vars/vault.yaml
+
+
+  tasks:
+
+  - name: Create secret user and password
+    user:
+      name: "{{secret_user}}"
+      password: "{{secret_user_pwd}}"
