@@ -23,5 +23,16 @@
       group: "{{jpetgroup}}"
       mode: 0755
       recurse: yes
+    register: dists
 
-    
+  - name: Download MySQL package
+    get_url:
+      url: ftp://mirror.mcs.anl.gov/pub/mysql/Downloads/MySQL-4.1/mysql-4.1.12.tar.gz
+      dest: "{{dists.path}}"
+    tags: download_mysql_pkg
+    ignore_errors: yes
+
+  - name: Install MySQL
+    apt:
+      name: mysql-server
+      state: present
