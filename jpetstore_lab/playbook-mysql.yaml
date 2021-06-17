@@ -22,6 +22,6 @@
       owner: "{{jpetuser}}"
       group: "{{jpetgroup}}"
       mode: 0755
-      recuse: yes
+      recurse: yes
 
     
