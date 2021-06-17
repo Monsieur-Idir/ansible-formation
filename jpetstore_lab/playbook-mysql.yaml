@@ -1,0 +1,27 @@
+---
+- name: This playbook installs MySQL
+  hosts: db-server
+
+  tasks:
+  - name: Create group {{petgroup}}
+    group:
+      name: "{{jpetgroup}}"
+      gid: "{{jpetgroup_gid}}"
+      state: present
+
+  - name: Create user {{jpetuser}}
+    user:
+      name: "{{jpetuser}}"
+      group: "{{jpetgroup}}"
+      uid: "{{jpetuser_uid}}"
+
+  - name: Create directory dists
+    file:
+      path: /dists
+      state: directory
+      owner: "{{jpetuser}}"
+      group: "{{jpetgroup}}"
+      mode: 0755
+      recuse: yes
+
+    
