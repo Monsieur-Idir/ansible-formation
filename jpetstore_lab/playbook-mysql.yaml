@@ -36,3 +36,24 @@
     apt:
       name: mysql-server
       state: present
+
+  - name: Copy mysql scripts
+    copy:
+      src: "{{item}}"
+      dest: /dists
+      mode: 0775
+      owner: "{{jpetuser}}"
+      group: "{{jpetgroup}}"
+    loop:
+      - files/jpetstore-mysql-create-user.sql
+      - files/jpetstore-mysql-dataload.sql
+      - files/jpetstore-mysql-schema.sql
+
+#  - name: Execute mysql scripts
+#    script: "{{dists.path}}/jpetstore-mysql-create-user.sql"
+
+#  - name: Exec scripts mysql
+#    command: mysql -h localhost -u user database < /dists/petstore-mysql-create-user.sql
+
+#  - name: Execute mysql scripts
+#    mysql_query:

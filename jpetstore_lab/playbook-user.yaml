@@ -1,0 +1,20 @@
+---
+- name: This playbook installs MySQL
+  hosts: db-server
+  become: True
+
+  tasks:
+  - name: copy file
+    copy:
+      src: files/script-create-user.sh
+      dest: /tmp
+      owner: root
+      group: root
+      mode: 0777
+
+  - name: Execute script
+    shell: /tmp/script-create-user.sh
+    register: command_results
+
+  - debug:
+      var: command_results

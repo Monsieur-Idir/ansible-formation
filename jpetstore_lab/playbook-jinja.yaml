@@ -1,0 +1,9 @@
+---
+- name: This playbook installs MySQL
+  hosts: db-server, web-server
+
+  tasks:
+  - name: Transfer config file
+    template:
+      src: conf.j2
+      dest: /tmp/conf.txt
