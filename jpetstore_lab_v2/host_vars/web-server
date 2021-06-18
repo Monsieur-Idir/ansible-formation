@@ -1,0 +1,10 @@
+---
+# Variables of local environment
+######################################
+ansible_ssh_host: 10.94.240.90
+ansible_ssh_port: 22
+ansible_ssh_user: root
+
+app_user: albert
+app_password: mypassword
+

@@ -1,0 +1,2 @@
+- src: zaxos.tomcat-ansible-role
+  version: "1.4.0"
