@@ -1,0 +1,3 @@
+---
+# defaults file for motd-role
+system_owner: default-user

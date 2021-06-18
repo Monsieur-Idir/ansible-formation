@@ -1,10 +1,6 @@
 ---
-# tasks file for motd
-- name: deliver motd file
+- name: Call my motd-role
+  hosts: web-server
 
-  template:
-    src: motd.j2
-    dest: /etc/motd
-    owner: root
-    group: root
-    mode: 0444
+  roles:
+  - motd-role
